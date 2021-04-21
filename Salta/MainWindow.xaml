@@ -5,8 +5,343 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Salta"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="Salta Game" Height="600" Width="600">
+
+    <Window.Resources>
+
+        <!-- Chekerboard pattern brush -->
+        <DrawingBrush x:Key="Checkerboard" Stretch="None" TileMode="Tile" Viewport="0,0,2,2" ViewportUnits="Absolute">
+            <DrawingBrush.Drawing>
+                <DrawingGroup>
+                    <GeometryDrawing Brush="Tan">
+                        <GeometryDrawing.Geometry>
+                            <RectangleGeometry Rect="0,0,2,2" />
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="PapayaWhip">
+                        <GeometryDrawing.Geometry>
+                            <GeometryGroup>
+                                <RectangleGeometry Rect="0,0,1,1" />
+                                <RectangleGeometry Rect="1,1,1,1" />
+                            </GeometryGroup>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                </DrawingGroup>
+            </DrawingBrush.Drawing>
+        </DrawingBrush>
+
+        <!-- Image style for chess pieces -->
+        <Style x:Key="SaltaPieceStyle" TargetType="{x:Type Image}">
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Star_1}"/>
+                        <Condition Binding="{Binding Player}" Value="{x:Static local:Player.Green}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/1sg.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Star_2}"/>
+                        <Condition Binding="{Binding Player}" Value="{x:Static local:Player.Green}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/2sg.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Star_3}"/>
+                        <Condition Binding="{Binding Player}" Value="{x:Static local:Player.Green}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/3sg.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Star_4}"/>
+                        <Condition Binding="{Binding Player}" Value="{x:Static local:Player.Green}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/4sg.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Star_5}"/>
+                        <Condition Binding="{Binding Player}" Value="{x:Static local:Player.Green}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/5sg.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Moon_1}"/>
+                        <Condition Binding="{Binding Player}" Value="{x:Static local:Player.Green}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/1mg.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Moon_2}"/>
+                        <Condition Binding="{Binding Player}" Value="{x:Static local:Player.Green}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/2mg.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Moon_3}"/>
+                        <Condition Binding="{Binding Player}" Value="{x:Static local:Player.Green}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/3mg.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Moon_4}"/>
+                        <Condition Binding="{Binding Player}" Value="{x:Static local:Player.Green}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/4mg.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Moon_5}"/>
+                        <Condition Binding="{Binding Player}" Value="{x:Static local:Player.Green}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/5mg.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Point_1}"/>
+                        <Condition Binding="{Binding Player}" Value="{x:Static local:Player.Green}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/1pg.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Point_2}"/>
+                        <Condition Binding="{Binding Player}" Value="{x:Static local:Player.Green}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/2pg.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Point_3}"/>
+                        <Condition Binding="{Binding Player}" Value="{x:Static local:Player.Green}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/3pg.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Point_4}"/>
+                        <Condition Binding="{Binding Player}" Value="{x:Static local:Player.Green}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/4pg.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Point_5}"/>
+                        <Condition Binding="{Binding Player}" Value="{x:Static local:Player.Green}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/5pg.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Star_1}"/>
+                        <Condition Binding="{Binding Player}" Value="{x:Static local:Player.Red}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/1sr.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Star_2}"/>
+                        <Condition Binding="{Binding Player}" Value="{x:Static local:Player.Red}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/2sr.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Star_3}"/>
+                        <Condition Binding="{Binding Player}" Value="{x:Static local:Player.Red}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/3sr.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Star_4}"/>
+                        <Condition Binding="{Binding Player}" Value="{x:Static local:Player.Red}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/4sr.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Star_5}"/>
+                        <Condition Binding="{Binding Player}" Value="{x:Static local:Player.Red}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/5sr.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Moon_1}"/>
+                        <Condition Binding="{Binding Player}" Value="{x:Static local:Player.Red}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/1mr.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Moon_2}"/>
+                        <Condition Binding="{Binding Player}" Value="{x:Static local:Player.Red}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/2mr.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Moon_3}"/>
+                        <Condition Binding="{Binding Player}" Value="{x:Static local:Player.Red}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/3mr.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Moon_4}"/>
+                        <Condition Binding="{Binding Player}" Value="{x:Static local:Player.Red}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/4mr.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Moon_5}"/>
+                        <Condition Binding="{Binding Player}" Value="{x:Static local:Player.Red}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/5mr.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Point_1}"/>
+                        <Condition Binding="{Binding Player}" Value="{x:Static local:Player.Red}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/1pr.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Point_2}"/>
+                        <Condition Binding="{Binding Player}" Value="{x:Static local:Player.Red}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/2pr.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Point_3}"/>
+                        <Condition Binding="{Binding Player}" Value="{x:Static local:Player.Red}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/3pr.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Point_4}"/>
+                        <Condition Binding="{Binding Player}" Value="{x:Static local:Player.Red}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/4pr.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Point_5}"/>
+                        <Condition Binding="{Binding Player}" Value="{x:Static local:Player.Red}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/5pr.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+
+
+
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="{x:Static local:PieceType.Selection}"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Image.Source" Value="Assets/Selection.png" />
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
+
+    </Window.Resources>
+
+    <!-- Main Window Content -->
+    <Viewbox>
+        <ItemsControl Name="ChessBoard" MouseDown="ChessBoard_MouseDown">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas Name="CanvasBoard" Width="10" Height="10" Background="{StaticResource Checkerboard}"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid Width="1" Height="1">
+                        <Image Width="0.8" Height="0.8" Style="{StaticResource SaltaPieceStyle}" />
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemContainerStyle>
+                <Style>
+                    <Setter Property="Canvas.Left" Value="{Binding Pos.X}" />
+                    <Setter Property="Canvas.Top" Value="{Binding Pos.Y}" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+        </ItemsControl>
+    </Viewbox>
+
+
 </Window>
