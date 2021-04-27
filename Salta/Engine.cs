@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace Salta
 {
-	public enum Player
-	{
-		Green,
-		Red,
-		Special
-	}
+    class Engine
+    {
+    }
 }

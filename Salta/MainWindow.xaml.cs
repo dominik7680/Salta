@@ -63,7 +63,7 @@ namespace Salta
 				new SaltaPiece{Pos=new Point(3, 2), Type=PieceType.Point_4, Player=Player.Red},
 				new SaltaPiece{Pos=new Point(1, 2), Type=PieceType.Point_5, Player=Player.Red},
 
-				new SaltaPiece{Pos=new Point(-1, -1), Type=PieceType.Selection, Player=Player.Green},
+				new SaltaPiece{Pos=new Point(-1, -1), Type=PieceType.Selection, Player=Player.Special},
 			};
 
 			this.ChessBoard.ItemsSource = this.Pieces;
@@ -81,7 +81,6 @@ namespace Salta
 			if (lastSelectedPiece != null && currentSelectedPiece == null)
             {
 				lastSelectedPiece.Pos = currentSelect;
-				
 			}
 			else
             {
@@ -90,10 +89,37 @@ namespace Salta
 			var selection = Pieces.Where(z => z.Type == PieceType.Selection).FirstOrDefault();
 			selection.Pos = currentSelect;
 
+			checkMove(currentSelect);
+			
 		}
 
+		private void checkMove(Point currentSelect)
+		{
+			var currentSelectedPiece = Pieces.Where(z => z.Pos.X == currentSelect.X && z.Pos.Y == currentSelect.Y).FirstOrDefault();
+
+			if(currentSelectedPiece.Player == Player.Green)
+            {
+				if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X - 1 && z.Pos.Y == currentSelectedPiece.Pos.Y - 1).FirstOrDefault() == null)
+				{
+					Console.WriteLine("valid move: " + (currentSelectedPiece.Pos.X - 1) + "," + (currentSelectedPiece.Pos.Y - 1));
+				}
+				if(Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 1 && z.Pos.Y == currentSelectedPiece.Pos.Y - 1).FirstOrDefault() == null)
+				{
+					Console.WriteLine("valid move: " + (currentSelectedPiece.Pos.X + 1) + "," + (currentSelectedPiece.Pos.Y - 1));
+				}
+			}
+
+			if (currentSelectedPiece.Player == Player.Red)
+			{
+				if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 1 && z.Pos.Y == currentSelectedPiece.Pos.Y + 1).FirstOrDefault() == null)
+				{
+					Console.WriteLine("valid move: " + (currentSelectedPiece.Pos.X + 1) + "," + (currentSelectedPiece.Pos.Y + 1));
+				}
+				if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X - 1 && z.Pos.Y == currentSelectedPiece.Pos.Y + 1).FirstOrDefault() == null)
+				{
+					Console.WriteLine("valid move: " + (currentSelectedPiece.Pos.X - 1) + "," + (currentSelectedPiece.Pos.Y + 1));
+				}
+			}
+		}
     }
-
-
-
 }
