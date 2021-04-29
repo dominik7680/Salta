@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -90,7 +91,7 @@ namespace Salta
 			var selection = Pieces.Where(z => z.Type == PieceType.Selection).FirstOrDefault();
 			selection.Pos = currentSelect;
 
-			engine.checkMove(currentSelect, this.Pieces);
+			ArrayList validMoves = engine.findValidmoves(currentSelect, this.Pieces);
 		}
     }
 }
