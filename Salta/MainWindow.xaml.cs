@@ -92,6 +92,10 @@ namespace Salta
 			selection.Pos = currentSelect;
 
 			ArrayList validMoves = engine.findValidmoves(currentSelect, this.Pieces);
+			foreach(Point move in validMoves)
+            {
+				Console.WriteLine(move.X + "," + move.Y);
+            }
 		}
     }
 }

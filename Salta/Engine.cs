@@ -22,28 +22,36 @@ namespace Salta
 				if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X - 1 && z.Pos.Y == currentSelectedPiece.Pos.Y - 1).FirstOrDefault() != null)
 				{
 					Point valid = new Point(currentSelectedPiece.Pos.X - 2, currentSelectedPiece.Pos.Y - 2);
-					validMoves.Add(valid);
-					//Console.WriteLine("valid move: " + (currentSelectedPiece.Pos.X - 2) + "," + (currentSelectedPiece.Pos.Y - 2));
+					if(valid.X>=0 && valid.X<10 && valid.Y > 0)
+                    {
+						validMoves.Add(valid);
+					}
 				}
 				else if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 1 && z.Pos.Y == currentSelectedPiece.Pos.Y - 1).FirstOrDefault() != null)
 				{
 					Point valid = new Point(currentSelectedPiece.Pos.X + 2, currentSelectedPiece.Pos.Y - 2);
-					validMoves.Add(valid);
-					//Console.WriteLine("valid move: " + (currentSelectedPiece.Pos.X + 2) + "," + (currentSelectedPiece.Pos.Y - 2));
+					if (valid.X >= 0 && valid.X < 10 && valid.Y > 0)
+					{
+						validMoves.Add(valid);
+					}
 				}
 				else
 				{
 					if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X - 1 && z.Pos.Y == currentSelectedPiece.Pos.Y - 1).FirstOrDefault() == null)
 					{
 						Point valid = new Point(currentSelectedPiece.Pos.X - 1, currentSelectedPiece.Pos.Y - 1);
-						validMoves.Add(valid);
-						//Console.WriteLine("valid move: " + (currentSelectedPiece.Pos.X - 1) + "," + (currentSelectedPiece.Pos.Y - 1));
+						if (valid.X >= 0 && valid.X < 10 && valid.Y > 0)
+						{
+							validMoves.Add(valid);
+						}
 					}
 					if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 1 && z.Pos.Y == currentSelectedPiece.Pos.Y - 1).FirstOrDefault() == null)
 					{
 						Point valid = new Point(currentSelectedPiece.Pos.X + 1, currentSelectedPiece.Pos.Y - 1);
-						validMoves.Add(valid);
-						//Console.WriteLine("valid move: " + (currentSelectedPiece.Pos.X + 1) + "," + (currentSelectedPiece.Pos.Y - 1));
+						if (valid.X >= 0 && valid.X < 10 && valid.Y > 0)
+						{
+							validMoves.Add(valid);
+						}
 					}
 				}
 				Console.WriteLine("----------");
@@ -53,28 +61,36 @@ namespace Salta
 				if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 1 && z.Pos.Y == currentSelectedPiece.Pos.Y + 1).FirstOrDefault() != null)
 				{
 					Point valid = new Point(currentSelectedPiece.Pos.X + 2, currentSelectedPiece.Pos.Y + 2);
-					validMoves.Add(valid);
-					//Console.WriteLine("valid move: " + (currentSelectedPiece.Pos.X + 2) + "," + (currentSelectedPiece.Pos.Y + 2));
+					if (valid.X >= 0 && valid.X < 10 && valid.Y < 10)
+					{
+						validMoves.Add(valid);
+					}
 				}
 				else if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X - 1 && z.Pos.Y == currentSelectedPiece.Pos.Y + 1).FirstOrDefault() != null)
 				{
 					Point valid = new Point(currentSelectedPiece.Pos.X - 2, currentSelectedPiece.Pos.Y + 2);
-					validMoves.Add(valid);
-					//Console.WriteLine("valid move: " + (currentSelectedPiece.Pos.X - 2) + "," + (currentSelectedPiece.Pos.Y + 2));
+					if (valid.X >= 0 && valid.X < 10 && valid.Y < 10)
+					{
+						validMoves.Add(valid);
+					}
 				}
 				else
 				{
 					if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 1 && z.Pos.Y == currentSelectedPiece.Pos.Y + 1).FirstOrDefault() == null)
 					{
 						Point valid = new Point(currentSelectedPiece.Pos.X + 1, currentSelectedPiece.Pos.Y + 1);
-						validMoves.Add(valid);
-						//Console.WriteLine("valid move: " + (currentSelectedPiece.Pos.X + 1) + "," + (currentSelectedPiece.Pos.Y + 1));
+						if (valid.X >= 0 && valid.X < 10 && valid.Y < 10)
+						{
+							validMoves.Add(valid);
+						}
 					}
 					if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X - 1 && z.Pos.Y == currentSelectedPiece.Pos.Y + 1).FirstOrDefault() == null)
 					{
 						Point valid = new Point(currentSelectedPiece.Pos.X - 1, currentSelectedPiece.Pos.Y + 1);
-						validMoves.Add(valid);
-						//Console.WriteLine("valid move: " + (currentSelectedPiece.Pos.X - 1) + "," + (currentSelectedPiece.Pos.Y + 1));
+						if (valid.X >= 0 && valid.X < 10 && valid.Y < 10)
+						{
+							validMoves.Add(valid);
+						}
 					}
 				}
 				Console.WriteLine("----------");
