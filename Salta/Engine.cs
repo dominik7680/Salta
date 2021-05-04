@@ -18,79 +18,79 @@ namespace Salta
 
 			if (currentSelectedPiece.Player == Player.Green)
 			{
-				//jezeli na polu obok stoi pionek przeciwnika wlasciwym ruchem jest przeskoczenie go - Salta!
-				if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X - 1 && z.Pos.Y == currentSelectedPiece.Pos.Y - 1).FirstOrDefault() != null)
-				{
-					Point valid = new Point(currentSelectedPiece.Pos.X - 2, currentSelectedPiece.Pos.Y - 2);
-					if(valid.X>=0 && valid.X<10 && valid.Y > 0 && Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X - 2 && z.Pos.Y == currentSelectedPiece.Pos.Y - 2).FirstOrDefault() == null)
+				if(Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X - 1 && z.Pos.Y == currentSelectedPiece.Pos.Y - 1).FirstOrDefault() != null &&
+					Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X - 1 && z.Pos.Y == currentSelectedPiece.Pos.Y - 1).FirstOrDefault().Player == Player.Red)
+                {
+					if(Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X - 2 && z.Pos.Y == currentSelectedPiece.Pos.Y - 2).FirstOrDefault() == null &&
+						currentSelect.X - 2 >= 0 && currentSelect.Y - 2 >= 0)
                     {
+						Point valid = new Point(currentSelectedPiece.Pos.X - 2, currentSelectedPiece.Pos.Y - 2);
 						validMoves.Add(valid);
 					}
-				}
-				else if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 1 && z.Pos.Y == currentSelectedPiece.Pos.Y - 1).FirstOrDefault() != null)
+                }
+				else if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 1 && z.Pos.Y == currentSelectedPiece.Pos.Y - 1).FirstOrDefault() != null &&
+							Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 1 && z.Pos.Y == currentSelectedPiece.Pos.Y - 1).FirstOrDefault().Player == Player.Red)
 				{
-					Point valid = new Point(currentSelectedPiece.Pos.X + 2, currentSelectedPiece.Pos.Y - 2);
-					if (valid.X >= 0 && valid.X < 10 && valid.Y > 0 && Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 2 && z.Pos.Y == currentSelectedPiece.Pos.Y - 2).FirstOrDefault() == null)
+					if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 2 && z.Pos.Y == currentSelectedPiece.Pos.Y - 2).FirstOrDefault() == null &&
+						currentSelect.X + 2 <= 10 && currentSelect.Y - 2 >= 0)
 					{
+						Point valid = new Point(currentSelectedPiece.Pos.X + 2, currentSelectedPiece.Pos.Y - 2);
 						validMoves.Add(valid);
 					}
 				}
-				else
-				{
-					if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X - 1 && z.Pos.Y == currentSelectedPiece.Pos.Y - 1).FirstOrDefault() == null)
+                else
+                {
+					if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X - 1 && z.Pos.Y == currentSelectedPiece.Pos.Y - 1).FirstOrDefault() == null &&
+					currentSelect.X - 1 >= 0 && currentSelect.Y - 1 >= 0)
 					{
 						Point valid = new Point(currentSelectedPiece.Pos.X - 1, currentSelectedPiece.Pos.Y - 1);
-						if (valid.X >= 0 && valid.X < 10 && valid.Y > 0)
-						{
-							validMoves.Add(valid);
-						}
+						validMoves.Add(valid);
 					}
-					if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 1 && z.Pos.Y == currentSelectedPiece.Pos.Y - 1).FirstOrDefault() == null)
+					if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 1 && z.Pos.Y == currentSelectedPiece.Pos.Y - 1).FirstOrDefault() == null &&
+						currentSelect.X + 1 <= 10 && currentSelect.Y - 1 >= 0)
 					{
 						Point valid = new Point(currentSelectedPiece.Pos.X + 1, currentSelectedPiece.Pos.Y - 1);
-						if (valid.X >= 0 && valid.X < 10 && valid.Y > 0)
-						{
-							validMoves.Add(valid);
-						}
+						validMoves.Add(valid);
 					}
 				}
+				
 				Console.WriteLine("----------");
 			}
 			else if (currentSelectedPiece.Player == Player.Red)
 			{
-				if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 1 && z.Pos.Y == currentSelectedPiece.Pos.Y + 1).FirstOrDefault() != null)
+				if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 1 && z.Pos.Y == currentSelectedPiece.Pos.Y + 1).FirstOrDefault() != null &&
+					Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 1 && z.Pos.Y == currentSelectedPiece.Pos.Y + 1).FirstOrDefault().Player == Player.Green)
 				{
-					Point valid = new Point(currentSelectedPiece.Pos.X + 2, currentSelectedPiece.Pos.Y + 2);
-					if (valid.X >= 0 && valid.X < 10 && valid.Y < 10 && Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 2 && z.Pos.Y == currentSelectedPiece.Pos.Y + 2).FirstOrDefault() == null)
+					if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 2 && z.Pos.Y == currentSelectedPiece.Pos.Y + 2).FirstOrDefault() == null &&
+						currentSelect.X + 2 <= 10 && currentSelect.Y + 2 <= 10)
 					{
+						Point valid = new Point(currentSelectedPiece.Pos.X + 2, currentSelectedPiece.Pos.Y + 2);
 						validMoves.Add(valid);
 					}
 				}
-				else if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X - 1 && z.Pos.Y == currentSelectedPiece.Pos.Y + 1).FirstOrDefault() != null)
+				else if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X - 1 && z.Pos.Y == currentSelectedPiece.Pos.Y + 1).FirstOrDefault() != null &&
+							Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X - 1 && z.Pos.Y == currentSelectedPiece.Pos.Y + 1).FirstOrDefault().Player == Player.Green)
 				{
-					Point valid = new Point(currentSelectedPiece.Pos.X - 2, currentSelectedPiece.Pos.Y + 2);
-					if (valid.X >= 0 && valid.X < 10 && valid.Y < 10 && Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X - 2 && z.Pos.Y == currentSelectedPiece.Pos.Y + 2).FirstOrDefault() == null)
+					if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X - 2 && z.Pos.Y == currentSelectedPiece.Pos.Y + 2).FirstOrDefault() == null &&
+						currentSelect.X - 2 >= 0 && currentSelect.Y + 2 <= 10)
 					{
+						Point valid = new Point(currentSelectedPiece.Pos.X - 2, currentSelectedPiece.Pos.Y + 2);
 						validMoves.Add(valid);
 					}
 				}
 				else
 				{
-					if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 1 && z.Pos.Y == currentSelectedPiece.Pos.Y + 1).FirstOrDefault() == null)
-					{
-						Point valid = new Point(currentSelectedPiece.Pos.X + 1, currentSelectedPiece.Pos.Y + 1);
-						if (valid.X >= 0 && valid.X < 10 && valid.Y < 10)
-						{
-							validMoves.Add(valid);
-						}
-					}
-					if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X - 1 && z.Pos.Y == currentSelectedPiece.Pos.Y + 1).FirstOrDefault() == null)
+					if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X - 1 && z.Pos.Y == currentSelectedPiece.Pos.Y + 1).FirstOrDefault() == null &&
+					currentSelect.X - 1 >= 0 && currentSelect.Y + 1 <= 10)
 					{
 						Point valid = new Point(currentSelectedPiece.Pos.X - 1, currentSelectedPiece.Pos.Y + 1);
-						if (valid.X >= 0 && valid.X < 10 && valid.Y < 10)
-						{
-							validMoves.Add(valid);
-						}
+						validMoves.Add(valid);
+					}
+					if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 1 && z.Pos.Y == currentSelectedPiece.Pos.Y + 1).FirstOrDefault() == null &&
+						currentSelect.X + 1 <= 10 && currentSelect.Y + 1 <= 10)
+					{
+						Point valid = new Point(currentSelectedPiece.Pos.X + 1, currentSelectedPiece.Pos.Y + 1);
+						validMoves.Add(valid);
 					}
 				}
 				Console.WriteLine("----------");
