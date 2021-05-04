@@ -22,7 +22,7 @@ namespace Salta
 				if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X - 1 && z.Pos.Y == currentSelectedPiece.Pos.Y - 1).FirstOrDefault() != null)
 				{
 					Point valid = new Point(currentSelectedPiece.Pos.X - 2, currentSelectedPiece.Pos.Y - 2);
-					if(valid.X>=0 && valid.X<10 && valid.Y > 0)
+					if(valid.X>=0 && valid.X<10 && valid.Y > 0 && Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X - 2 && z.Pos.Y == currentSelectedPiece.Pos.Y - 2).FirstOrDefault() == null)
                     {
 						validMoves.Add(valid);
 					}
@@ -30,7 +30,7 @@ namespace Salta
 				else if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 1 && z.Pos.Y == currentSelectedPiece.Pos.Y - 1).FirstOrDefault() != null)
 				{
 					Point valid = new Point(currentSelectedPiece.Pos.X + 2, currentSelectedPiece.Pos.Y - 2);
-					if (valid.X >= 0 && valid.X < 10 && valid.Y > 0)
+					if (valid.X >= 0 && valid.X < 10 && valid.Y > 0 && Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 2 && z.Pos.Y == currentSelectedPiece.Pos.Y - 2).FirstOrDefault() == null)
 					{
 						validMoves.Add(valid);
 					}
@@ -61,7 +61,7 @@ namespace Salta
 				if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 1 && z.Pos.Y == currentSelectedPiece.Pos.Y + 1).FirstOrDefault() != null)
 				{
 					Point valid = new Point(currentSelectedPiece.Pos.X + 2, currentSelectedPiece.Pos.Y + 2);
-					if (valid.X >= 0 && valid.X < 10 && valid.Y < 10)
+					if (valid.X >= 0 && valid.X < 10 && valid.Y < 10 && Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 2 && z.Pos.Y == currentSelectedPiece.Pos.Y + 2).FirstOrDefault() == null)
 					{
 						validMoves.Add(valid);
 					}
@@ -69,7 +69,7 @@ namespace Salta
 				else if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X - 1 && z.Pos.Y == currentSelectedPiece.Pos.Y + 1).FirstOrDefault() != null)
 				{
 					Point valid = new Point(currentSelectedPiece.Pos.X - 2, currentSelectedPiece.Pos.Y + 2);
-					if (valid.X >= 0 && valid.X < 10 && valid.Y < 10)
+					if (valid.X >= 0 && valid.X < 10 && valid.Y < 10 && Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X - 2 && z.Pos.Y == currentSelectedPiece.Pos.Y + 2).FirstOrDefault() == null)
 					{
 						validMoves.Add(valid);
 					}
