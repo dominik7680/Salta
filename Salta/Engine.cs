@@ -32,7 +32,7 @@ namespace Salta
 							Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 1 && z.Pos.Y == currentSelectedPiece.Pos.Y - 1).FirstOrDefault().Player == Player.Red)
 				{
 					if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 2 && z.Pos.Y == currentSelectedPiece.Pos.Y - 2).FirstOrDefault() == null &&
-						currentSelect.X + 2 <= 10 && currentSelect.Y - 2 >= 0)
+						currentSelect.X + 2 < 10 && currentSelect.Y - 2 >= 0)
 					{
 						Point valid = new Point(currentSelectedPiece.Pos.X + 2, currentSelectedPiece.Pos.Y - 2);
 						validMoves.Add(valid);
@@ -47,7 +47,7 @@ namespace Salta
 						validMoves.Add(valid);
 					}
 					if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 1 && z.Pos.Y == currentSelectedPiece.Pos.Y - 1).FirstOrDefault() == null &&
-						currentSelect.X + 1 <= 10 && currentSelect.Y - 1 >= 0)
+						currentSelect.X + 1 < 10 && currentSelect.Y - 1 >= 0)
 					{
 						Point valid = new Point(currentSelectedPiece.Pos.X + 1, currentSelectedPiece.Pos.Y - 1);
 						validMoves.Add(valid);
@@ -62,7 +62,7 @@ namespace Salta
 					Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 1 && z.Pos.Y == currentSelectedPiece.Pos.Y + 1).FirstOrDefault().Player == Player.Green)
 				{
 					if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 2 && z.Pos.Y == currentSelectedPiece.Pos.Y + 2).FirstOrDefault() == null &&
-						currentSelect.X + 2 <= 10 && currentSelect.Y + 2 <= 10)
+						currentSelect.X + 2 < 10 && currentSelect.Y + 2 <= 10)
 					{
 						Point valid = new Point(currentSelectedPiece.Pos.X + 2, currentSelectedPiece.Pos.Y + 2);
 						validMoves.Add(valid);
@@ -87,7 +87,7 @@ namespace Salta
 						validMoves.Add(valid);
 					}
 					if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 1 && z.Pos.Y == currentSelectedPiece.Pos.Y + 1).FirstOrDefault() == null &&
-						currentSelect.X + 1 <= 10 && currentSelect.Y + 1 <= 10)
+						currentSelect.X + 1 < 10 && currentSelect.Y + 1 <= 10)
 					{
 						Point valid = new Point(currentSelectedPiece.Pos.X + 1, currentSelectedPiece.Pos.Y + 1);
 						validMoves.Add(valid);

@@ -33,6 +33,7 @@ namespace Salta
 		public MainWindow()
         {
 			InitializeComponent();
+			//this.engine.IsWinner = false;
 
 			this.Pieces = new ObservableCollection<SaltaPiece>() {
 				new SaltaPiece{Pos=new Point(0, 9), Type=PieceType.Star_1, Player=Player.Green},
@@ -101,11 +102,11 @@ namespace Salta
 
 			if (lastSelectedPiece != null)
             {
-				Console.WriteLine("last: " + this.lastSelectedPiece.Pos.X + "," + this.lastSelectedPiece.Pos.Y);
+				//Console.WriteLine("last: " + this.lastSelectedPiece.Pos.X + "," + this.lastSelectedPiece.Pos.Y);
 			}
 			if (currentSelectedPiece != null)
 			{
-				Console.WriteLine("current: " + this.currentSelectedPiece.Pos.X + "," + this.currentSelectedPiece.Pos.Y);
+				//Console.WriteLine("current: " + this.currentSelectedPiece.Pos.X + "," + this.currentSelectedPiece.Pos.Y);
 			}
 		}
     }
