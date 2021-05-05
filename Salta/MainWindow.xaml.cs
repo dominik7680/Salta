@@ -27,6 +27,8 @@ namespace Salta
 		private ObservableCollection<SaltaPiece> Pieces;
 		private Point LastSelectedPosition = new Point(-1,-1);
 		private Engine engine = new Engine();
+		private SaltaPiece lastSelectedPiece;
+		private SaltaPiece currentSelectedPiece;
 
 		public MainWindow()
         {
@@ -78,8 +80,8 @@ namespace Salta
 			int y = (int)p.Y;
 
 			var currentSelect = new Point(x, y);
-			var lastSelectedPiece = Pieces.Where(z => z.Pos.X == LastSelectedPosition.X && z.Pos.Y == LastSelectedPosition.Y).FirstOrDefault();
-			var currentSelectedPiece = Pieces.Where(z => z.Pos.X == currentSelect.X && z.Pos.Y == currentSelect.Y).FirstOrDefault();
+			this.lastSelectedPiece = Pieces.Where(z => z.Pos.X == LastSelectedPosition.X && z.Pos.Y == LastSelectedPosition.Y).FirstOrDefault();
+			this.currentSelectedPiece = Pieces.Where(z => z.Pos.X == currentSelect.X && z.Pos.Y == currentSelect.Y).FirstOrDefault();
 			if (lastSelectedPiece != null && currentSelectedPiece == null)
             {
 				lastSelectedPiece.Pos = currentSelect;
@@ -96,6 +98,15 @@ namespace Salta
             {
 				Console.WriteLine(move.X + "," + move.Y);
             }
+
+			if (lastSelectedPiece != null)
+            {
+				Console.WriteLine("last: " + this.lastSelectedPiece.Pos.X + "," + this.lastSelectedPiece.Pos.Y);
+			}
+			if (currentSelectedPiece != null)
+			{
+				Console.WriteLine("current: " + this.currentSelectedPiece.Pos.X + "," + this.currentSelectedPiece.Pos.Y);
+			}
 		}
     }
 }
