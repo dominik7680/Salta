@@ -86,6 +86,9 @@ namespace Salta
 			if (lastSelectedPiece != null && currentSelectedPiece == null)
             {
 				lastSelectedPiece.Pos = currentSelect;
+				var tuple = this.engine.chooseMove(this.engine.allMoves(Pieces));
+				var pieceToMove = Pieces.Where(point => point.Type == tuple.Item1.Type && point.Player == Player.Red).FirstOrDefault();
+				pieceToMove.Pos = tuple.Item2;
 			}
 			else
             {
@@ -93,17 +96,6 @@ namespace Salta
 			}
 			var selection = Pieces.Where(z => z.Type == PieceType.Selection).FirstOrDefault();
 			selection.Pos = currentSelect;
-
-			/*List<Point> validMoves = engine.findValidmoves(currentSelect, this.Pieces);
-			foreach(Point move in validMoves)
-            {
-				Console.WriteLine(move.X + "," + move.Y);
-            }*/
-
-			if(currentSelectedPiece.Player == Player.Red)
-            {
-				this.engine.allMoves(Pieces);
-            }
 		}
     }
 }

@@ -123,5 +123,18 @@ namespace Salta
 
 			return allMoves;
 		}
+
+		public Tuple<SaltaPiece, Point> chooseMove(Dictionary<SaltaPiece, List<Point>> allMoves)
+        {
+			Random rnd = new Random();
+			int ranPieceNum = rnd.Next(0, allMoves.Count);
+			SaltaPiece randomPiece = allMoves.Keys.ElementAt(ranPieceNum);
+
+			int randomMove = rnd.Next(0, allMoves.Values.ElementAt(ranPieceNum).Count);
+
+			Point move = new Point(allMoves.Values.ElementAt(ranPieceNum)[randomMove].X, allMoves.Values.ElementAt(ranPieceNum)[randomMove].Y);
+			var tuple = new Tuple<SaltaPiece, Point>(randomPiece, move);
+			return tuple;
+        }
 	}
 }
