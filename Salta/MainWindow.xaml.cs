@@ -94,20 +94,16 @@ namespace Salta
 			var selection = Pieces.Where(z => z.Type == PieceType.Selection).FirstOrDefault();
 			selection.Pos = currentSelect;
 
-			ArrayList validMoves = engine.findValidmoves(currentSelect, this.Pieces);
+			/*List<Point> validMoves = engine.findValidmoves(currentSelect, this.Pieces);
 			foreach(Point move in validMoves)
             {
 				Console.WriteLine(move.X + "," + move.Y);
-            }
+            }*/
 
-			if (lastSelectedPiece != null)
+			if(currentSelectedPiece.Player == Player.Red)
             {
-				//Console.WriteLine("last: " + this.lastSelectedPiece.Pos.X + "," + this.lastSelectedPiece.Pos.Y);
-			}
-			if (currentSelectedPiece != null)
-			{
-				//Console.WriteLine("current: " + this.currentSelectedPiece.Pos.X + "," + this.currentSelectedPiece.Pos.Y);
-			}
+				this.engine.allMoves(Pieces);
+            }
 		}
     }
 }

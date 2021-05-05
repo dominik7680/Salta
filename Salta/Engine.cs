@@ -11,9 +11,9 @@ namespace Salta
 {
     class Engine
     {
-		public ArrayList findValidmoves(Point currentSelect, ObservableCollection<SaltaPiece> Pieces)
+		public List<Point> findValidmoves(Point currentSelect, ObservableCollection<SaltaPiece> Pieces)
 		{
-			ArrayList validMoves = new ArrayList();
+			List<Point> validMoves = new List<Point>();
 			var currentSelectedPiece = Pieces.Where(z => z.Pos.X == currentSelect.X && z.Pos.Y == currentSelect.Y).FirstOrDefault();
 
 			if (currentSelectedPiece.Player == Player.Green)
@@ -96,6 +96,32 @@ namespace Salta
 				Console.WriteLine("----------");
 			}
 			return validMoves;
+		}
+
+		public Dictionary<SaltaPiece, List<Point>> allMoves(ObservableCollection<SaltaPiece> Pieces)
+        {
+			Dictionary<SaltaPiece, List<Point>> allMoves = new Dictionary<SaltaPiece, List<Point>>();
+
+			foreach(SaltaPiece piece in Pieces)
+            {
+				if(piece.Player == Player.Green)
+                {
+
+                }
+				else if(piece.Player == Player.Red)
+                {
+					List<Point> validMoves = new List<Point>();
+					var currentSelect = new Point(piece.Pos.X, piece.Pos.Y);
+					validMoves = this.findValidmoves(currentSelect, Pieces);
+
+					if(validMoves.Count > 0)
+                    {
+						allMoves.Add(piece, validMoves);
+					}
+				}
+            }
+
+			return allMoves;
 		}
 	}
 }
