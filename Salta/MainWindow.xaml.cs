@@ -25,6 +25,7 @@ namespace Salta
     public partial class MainWindow : Window
     {
 		private ObservableCollection<SaltaPiece> Pieces;
+		private List<SaltaPiece> DestinationPositionsForPieces = new List<SaltaPiece>();
 		private Point LastSelectedPosition = new Point(-1,-1);
 		private Engine engine = new Engine();
 		private SaltaPiece lastSelectedPiece;
@@ -69,6 +70,11 @@ namespace Salta
 
 				new SaltaPiece{Pos=new Point(-1, -1), Type=PieceType.Selection, Player=Player.Special},
 			};
+			CalculateDestinationPositions();
+
+			//Temporary
+			Pieces.Clear();
+			DestinationPositionsForPieces.ForEach(Pieces.Add);
 
 			this.ChessBoard.ItemsSource = this.Pieces;
 		}
@@ -106,6 +112,40 @@ namespace Salta
 			if (currentSelectedPiece != null)
 			{
 				Console.WriteLine("current: " + this.currentSelectedPiece.Pos.X + "," + this.currentSelectedPiece.Pos.Y);
+			}
+		}
+
+		private void CalculateDestinationPositions()
+        {
+			foreach(var greenPiece in Pieces.Where(x => x.Player == Player.Green))
+            {
+				double destinationX = 0;
+				double destinationY = greenPiece.Pos.Y - 7;
+				if (greenPiece.Pos.X % 2 == 0)
+                {
+					destinationX = greenPiece.Pos.X + 1;			
+				}
+				else
+                {
+					destinationX = greenPiece.Pos.X - 1;
+				}
+				var pieceToInsert = new SaltaPiece { Pos = new Point(destinationX, destinationY), Type = greenPiece.Type, Player = Player.Green };
+				DestinationPositionsForPieces.Add(pieceToInsert);
+            }
+			foreach (var redPiece in Pieces.Where(x => x.Player == Player.Red))
+			{
+				double destinationX = 0;
+				double destinationY = redPiece.Pos.Y + 7;
+				if (redPiece.Pos.X % 2 == 0)
+				{
+					destinationX = redPiece.Pos.X + 1;
+				}
+				else
+				{
+					destinationX = redPiece.Pos.X - 1;
+				}
+				var pieceToInsert = new SaltaPiece { Pos = new Point(destinationX, destinationY), Type = redPiece.Type, Player = Player.Red };
+				DestinationPositionsForPieces.Add(pieceToInsert);
 			}
 		}
     }
