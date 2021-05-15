@@ -106,7 +106,6 @@ namespace Salta
 
 		private void CalculateDestinationPositions()
         {
-			
 			var playerTypeToCalculate = new List<Player>() { Player.Red, Player.Green };
 
 			foreach(var playerType in playerTypeToCalculate)
