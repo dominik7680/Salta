@@ -106,7 +106,7 @@ namespace Salta
 
 		private void CalculateDestinationPositions()
         {
-			var playerTypeToCalculate = new List<Player>() { Player.Red, Player.Green };
+			var playerTypeToCalculate = new List<Player> { Player.Red, Player.Green };
 
 			foreach(var playerType in playerTypeToCalculate)
             {
@@ -117,7 +117,8 @@ namespace Salta
 					var pieceToInsert = new SaltaPiece { 
 						Pos = new Point(destinationX, destinationY), 
 						Type = piece.Type, 
-						Player = piece.Player };
+						Player = piece.Player
+                    };
 
 					DestinationPositionsForPieces.Add(pieceToInsert);
 				}
