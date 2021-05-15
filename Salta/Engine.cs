@@ -136,5 +136,55 @@ namespace Salta
 			var tuple = new Tuple<SaltaPiece, Point>(randomPiece, move);
 			return tuple;
         }
+
+		public List<ObservableCollection<SaltaPiece>> simulateMove(Dictionary<SaltaPiece, List<Point>> allMoves, ObservableCollection<SaltaPiece> currentBoard)
+		{
+			List<ObservableCollection<SaltaPiece>> boards = new List<ObservableCollection<SaltaPiece>>();
+
+			for (int i = 0; i < allMoves.Keys.Count; i++)
+            {
+				SaltaPiece piece = allMoves.Keys.ElementAt(i);
+				List<Point> pieceMoves = allMoves.Values.ElementAt(i);
+
+				foreach(Point move in pieceMoves)
+                {
+					ObservableCollection<SaltaPiece> tempBoard = new ObservableCollection<SaltaPiece>(currentBoard);
+					var pieceFromTempBoard = tempBoard.FirstOrDefault(x => x.Type == piece.Type);
+					pieceFromTempBoard.Pos = move;
+					boards.Add(tempBoard);
+				}
+			}
+
+			return boards;
+		}
+
+		/// <summary>
+		/// Minmax function
+		/// </summary>
+		/// <param name="saltaPieces">All salta pieces</param>
+		/// <param name="depth">Depth of algorithm</param>
+		/// <param name="max_player">Boolean value if we are maximizing or minimizing algorithm</param>
+		public void minmax(ObservableCollection<SaltaPiece> saltaPieces, int depth, bool max_player)
+        {
+			if(depth == 0) // dodać warunek czy gra sie jeszcze toczy
+            {
+				//return evaluate();
+            }
+
+			if(max_player == true)
+            {
+				float maxEval = -100000;
+				bool best_move = false;
+
+				foreach(var move in this.allMoves(saltaPieces))
+                {
+
+                }
+            }
+            else
+            {
+
+            }
+        }
 	}
 }
