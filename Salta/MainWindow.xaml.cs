@@ -72,9 +72,9 @@ namespace Salta
 			};
 			CalculateDestinationPositions();
 
-			//Temporary
-			Pieces.Clear();
-			DestinationPositionsForPieces.ForEach(Pieces.Add);
+			// Temporary. Uncomment to show destination position in the beginning of the Game.
+			//Pieces.Clear();
+			//DestinationPositionsForPieces.ForEach(Pieces.Add);
 
 			this.ChessBoard.ItemsSource = this.Pieces;
 		}
@@ -117,35 +117,22 @@ namespace Salta
 
 		private void CalculateDestinationPositions()
         {
-			foreach(var greenPiece in Pieces.Where(x => x.Player == Player.Green))
+			
+			var playerTypeToCalculate = new List<Player>() { Player.Red, Player.Green };
+
+			foreach(var playerType in playerTypeToCalculate)
             {
-				double destinationX = 0;
-				double destinationY = greenPiece.Pos.Y - 7;
-				if (greenPiece.Pos.X % 2 == 0)
-                {
-					destinationX = greenPiece.Pos.X + 1;			
-				}
-				else
-                {
-					destinationX = greenPiece.Pos.X - 1;
-				}
-				var pieceToInsert = new SaltaPiece { Pos = new Point(destinationX, destinationY), Type = greenPiece.Type, Player = Player.Green };
-				DestinationPositionsForPieces.Add(pieceToInsert);
-            }
-			foreach (var redPiece in Pieces.Where(x => x.Player == Player.Red))
-			{
-				double destinationX = 0;
-				double destinationY = redPiece.Pos.Y + 7;
-				if (redPiece.Pos.X % 2 == 0)
+				foreach (var piece in Pieces.Where(x => x.Player == playerType))
 				{
-					destinationX = redPiece.Pos.X + 1;
+					double destinationX = piece.Pos.X % 2 == 0 ? piece.Pos.X + 1 : piece.Pos.X - 1;
+					double destinationY = playerType == Player.Red ? piece.Pos.Y + 7 : piece.Pos.Y - 7;
+					var pieceToInsert = new SaltaPiece { 
+						Pos = new Point(destinationX, destinationY), 
+						Type = piece.Type, 
+						Player = piece.Player };
+
+					DestinationPositionsForPieces.Add(pieceToInsert);
 				}
-				else
-				{
-					destinationX = redPiece.Pos.X - 1;
-				}
-				var pieceToInsert = new SaltaPiece { Pos = new Point(destinationX, destinationY), Type = redPiece.Type, Player = Player.Red };
-				DestinationPositionsForPieces.Add(pieceToInsert);
 			}
 		}
     }
