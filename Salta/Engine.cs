@@ -11,9 +11,9 @@ namespace Salta
 {
     class Engine
     {
-		public ArrayList findValidmoves(Point currentSelect, ObservableCollection<SaltaPiece> Pieces)
+		public List<Point> findValidmoves(Point currentSelect, ObservableCollection<SaltaPiece> Pieces)
 		{
-			ArrayList validMoves = new ArrayList();
+			List<Point> validMoves = new List<Point>();
 			var currentSelectedPiece = Pieces.Where(z => z.Pos.X == currentSelect.X && z.Pos.Y == currentSelect.Y).FirstOrDefault();
 
 			if (currentSelectedPiece.Player == Player.Green)
@@ -32,7 +32,7 @@ namespace Salta
 							Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 1 && z.Pos.Y == currentSelectedPiece.Pos.Y - 1).FirstOrDefault().Player == Player.Red)
 				{
 					if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 2 && z.Pos.Y == currentSelectedPiece.Pos.Y - 2).FirstOrDefault() == null &&
-						currentSelect.X + 2 <= 10 && currentSelect.Y - 2 >= 0)
+						currentSelect.X + 2 < 10 && currentSelect.Y - 2 >= 0)
 					{
 						Point valid = new Point(currentSelectedPiece.Pos.X + 2, currentSelectedPiece.Pos.Y - 2);
 						validMoves.Add(valid);
@@ -47,7 +47,7 @@ namespace Salta
 						validMoves.Add(valid);
 					}
 					if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 1 && z.Pos.Y == currentSelectedPiece.Pos.Y - 1).FirstOrDefault() == null &&
-						currentSelect.X + 1 <= 10 && currentSelect.Y - 1 >= 0)
+						currentSelect.X + 1 < 10 && currentSelect.Y - 1 >= 0)
 					{
 						Point valid = new Point(currentSelectedPiece.Pos.X + 1, currentSelectedPiece.Pos.Y - 1);
 						validMoves.Add(valid);
@@ -62,7 +62,7 @@ namespace Salta
 					Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 1 && z.Pos.Y == currentSelectedPiece.Pos.Y + 1).FirstOrDefault().Player == Player.Green)
 				{
 					if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 2 && z.Pos.Y == currentSelectedPiece.Pos.Y + 2).FirstOrDefault() == null &&
-						currentSelect.X + 2 <= 10 && currentSelect.Y + 2 <= 10)
+						currentSelect.X + 2 < 10 && currentSelect.Y + 2 <= 10)
 					{
 						Point valid = new Point(currentSelectedPiece.Pos.X + 2, currentSelectedPiece.Pos.Y + 2);
 						validMoves.Add(valid);
@@ -87,7 +87,7 @@ namespace Salta
 						validMoves.Add(valid);
 					}
 					if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 1 && z.Pos.Y == currentSelectedPiece.Pos.Y + 1).FirstOrDefault() == null &&
-						currentSelect.X + 1 <= 10 && currentSelect.Y + 1 <= 10)
+						currentSelect.X + 1 < 10 && currentSelect.Y + 1 <= 10)
 					{
 						Point valid = new Point(currentSelectedPiece.Pos.X + 1, currentSelectedPiece.Pos.Y + 1);
 						validMoves.Add(valid);
@@ -97,5 +97,44 @@ namespace Salta
 			}
 			return validMoves;
 		}
+
+		public Dictionary<SaltaPiece, List<Point>> allMoves(ObservableCollection<SaltaPiece> Pieces)
+        {
+			Dictionary<SaltaPiece, List<Point>> allMoves = new Dictionary<SaltaPiece, List<Point>>();
+
+			foreach(SaltaPiece piece in Pieces)
+            {
+				if(piece.Player == Player.Green)
+                {
+
+                }
+				else if(piece.Player == Player.Red)
+                {
+					List<Point> validMoves = new List<Point>();
+					var currentSelect = new Point(piece.Pos.X, piece.Pos.Y);
+					validMoves = this.findValidmoves(currentSelect, Pieces);
+
+					if(validMoves.Count > 0)
+                    {
+						allMoves.Add(piece, validMoves);
+					}
+				}
+            }
+
+			return allMoves;
+		}
+
+		public Tuple<SaltaPiece, Point> chooseMove(Dictionary<SaltaPiece, List<Point>> allMoves)
+        {
+			Random rnd = new Random();
+			int ranPieceNum = rnd.Next(0, allMoves.Count);
+			SaltaPiece randomPiece = allMoves.Keys.ElementAt(ranPieceNum);
+
+			int randomMove = rnd.Next(0, allMoves.Values.ElementAt(ranPieceNum).Count);
+
+			Point move = new Point(allMoves.Values.ElementAt(ranPieceNum)[randomMove].X, allMoves.Values.ElementAt(ranPieceNum)[randomMove].Y);
+			var tuple = new Tuple<SaltaPiece, Point>(randomPiece, move);
+			return tuple;
+        }
 	}
 }

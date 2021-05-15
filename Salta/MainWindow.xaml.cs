@@ -34,6 +34,7 @@ namespace Salta
 		public MainWindow()
         {
 			InitializeComponent();
+			//this.engine.IsWinner = false;
 
 			this.Pieces = new ObservableCollection<SaltaPiece>() {
 				new SaltaPiece{Pos=new Point(0, 9), Type=PieceType.Star_1, Player=Player.Green},
@@ -91,6 +92,9 @@ namespace Salta
 			if (lastSelectedPiece != null && currentSelectedPiece == null)
             {
 				lastSelectedPiece.Pos = currentSelect;
+				var tuple = this.engine.chooseMove(this.engine.allMoves(Pieces));
+				var pieceToMove = Pieces.Where(point => point.Type == tuple.Item1.Type && point.Player == Player.Red).FirstOrDefault();
+				pieceToMove.Pos = tuple.Item2;
 			}
 			else
             {
@@ -98,21 +102,6 @@ namespace Salta
 			}
 			var selection = Pieces.Where(z => z.Type == PieceType.Selection).FirstOrDefault();
 			selection.Pos = currentSelect;
-
-			ArrayList validMoves = engine.findValidmoves(currentSelect, this.Pieces);
-			foreach(Point move in validMoves)
-            {
-				Console.WriteLine(move.X + "," + move.Y);
-            }
-
-			if (lastSelectedPiece != null)
-            {
-				Console.WriteLine("last: " + this.lastSelectedPiece.Pos.X + "," + this.lastSelectedPiece.Pos.Y);
-			}
-			if (currentSelectedPiece != null)
-			{
-				Console.WriteLine("current: " + this.currentSelectedPiece.Pos.X + "," + this.currentSelectedPiece.Pos.Y);
-			}
 		}
 
 		private void CalculateDestinationPositions()
