@@ -154,6 +154,14 @@ namespace Salta
 			return boards;
 		}
 
+		public float evaluate(ObservableCollection<SaltaPiece> board)
+        {
+			Random random = new Random();
+			int rand = random.Next();
+
+			return rand;
+		}
+
 		/// <summary>
 		/// Minmax function
 		/// </summary>
@@ -164,8 +172,7 @@ namespace Salta
         {
 			if(depth == 0) // dodać warunek czy gra sie jeszcze toczy
             {
-				return new Tuple<float, ObservableCollection<SaltaPiece>>(0, saltaPieces);
-				//return evaluate();
+				return new Tuple<float, ObservableCollection<SaltaPiece>>(evaluate(saltaPieces), saltaPieces);
             }
 
 			if(max_player == true)
@@ -173,9 +180,9 @@ namespace Salta
 				float maxEval = -100000;
 				ObservableCollection<SaltaPiece> best_move = new ObservableCollection<SaltaPiece>();
 
-				foreach(var move in this.simulateMove(this.allMoves(saltaPieces, Player.Red), saltaPieces))
+				foreach(var board in this.simulateMove(this.allMoves(saltaPieces, Player.Red), saltaPieces))
                 {
-					float evaluation = minmax(move, depth - 1, false).Item1;
+					float evaluation = minmax(board, depth - 1, false).Item1;
 					Math.Max(maxEval, evaluation);
                 }
 
@@ -186,9 +193,9 @@ namespace Salta
 				float minEval = 100000;
 				ObservableCollection<SaltaPiece> best_move = new ObservableCollection<SaltaPiece>();
 
-				foreach (var move in this.simulateMove(this.allMoves(saltaPieces, Player.Green), saltaPieces))
+				foreach (var board in this.simulateMove(this.allMoves(saltaPieces, Player.Green), saltaPieces))
 				{
-					float evaluation = minmax(move, depth - 1, false).Item1;
+					float evaluation = minmax(board, depth - 1, false).Item1;
 					Math.Min(minEval, evaluation);
 				}
 
