@@ -157,7 +157,7 @@ namespace Salta
 		public float evaluate(ObservableCollection<SaltaPiece> board)
         {
 			Random random = new Random();
-			int rand = random.Next();
+			int rand = random.Next(10);
 
 			return rand;
 		}
@@ -179,7 +179,7 @@ namespace Salta
 
 			if(max_player == true)
             {
-				float maxEval = -100000;
+				float maxEval = 10;
 				ObservableCollection<SaltaPiece> best_board = new ObservableCollection<SaltaPiece>();
 
 				foreach(var board in this.simulateMove(this.allMoves(saltaPieces, Player.Red), saltaPieces))
@@ -194,13 +194,13 @@ namespace Salta
             }
             else
             {
-				float minEval = 100000;
+				float minEval = 10;
 				ObservableCollection<SaltaPiece> best_board = new ObservableCollection<SaltaPiece>();
 
 				foreach (var board in this.simulateMove(this.allMoves(saltaPieces, Player.Green), saltaPieces))
 				{
-					float evaluation = minmax(board, depth - 1, false).Item1;
-					Math.Min(minEval, evaluation);
+					float evaluation = minmax(board, depth - 1, true).Item1;
+					minEval = Math.Min(minEval, evaluation);
 					if (minEval == evaluation)
 						best_board = cloneBoard(board);
 				}
@@ -220,7 +220,7 @@ namespace Salta
 			return newPiece;
 		}
 
-		private ObservableCollection<SaltaPiece> cloneBoard(ObservableCollection<SaltaPiece> board)
+		public ObservableCollection<SaltaPiece> cloneBoard(ObservableCollection<SaltaPiece> board)
 		{
 			ObservableCollection<SaltaPiece> newBoard = new ObservableCollection<SaltaPiece>();
 			foreach (SaltaPiece piece in board)
