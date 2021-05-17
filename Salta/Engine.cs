@@ -98,17 +98,13 @@ namespace Salta
 			return validMoves;
 		}
 
-		public Dictionary<SaltaPiece, List<Point>> allMoves(ObservableCollection<SaltaPiece> Pieces)
+		public Dictionary<SaltaPiece, List<Point>> allMoves(ObservableCollection<SaltaPiece> Pieces, Player color)
         {
 			Dictionary<SaltaPiece, List<Point>> allMoves = new Dictionary<SaltaPiece, List<Point>>();
 
 			foreach(SaltaPiece piece in Pieces)
             {
-				if(piece.Player == Player.Green)
-                {
-
-                }
-				else if(piece.Player == Player.Red)
+				if(piece.Player == color)
                 {
 					List<Point> validMoves = new List<Point>();
 					var currentSelect = new Point(piece.Pos.X, piece.Pos.Y);
@@ -176,7 +172,7 @@ namespace Salta
 				float maxEval = -100000;
 				bool best_move = false;
 
-				foreach(var move in this.allMoves(saltaPieces))
+				foreach(var move in this.allMoves(saltaPieces, Player.Red))
                 {
 
                 }
