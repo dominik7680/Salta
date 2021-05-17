@@ -131,7 +131,7 @@ namespace Salta
 			Point move = new Point(allMoves.Values.ElementAt(ranPieceNum)[randomMove].X, allMoves.Values.ElementAt(ranPieceNum)[randomMove].Y);
 			var tuple = new Tuple<SaltaPiece, Point>(randomPiece, move);
 			return tuple;
-        }
+        }*/
 
 		public List<ObservableCollection<SaltaPiece>> simulateMove(Dictionary<SaltaPiece, List<Point>> allMoves, ObservableCollection<SaltaPiece> currentBoard)
 		{
@@ -145,7 +145,7 @@ namespace Salta
 				foreach(Point move in pieceMoves)
                 {
 					ObservableCollection<SaltaPiece> tempBoard = cloneBoard(currentBoard);
-					var pieceFromTempBoard = tempBoard.FirstOrDefault(x => x.Type == piece.Type);
+					var pieceFromTempBoard = tempBoard.FirstOrDefault(x => x.Type == piece.Type && x.Player == piece.Player);
 					pieceFromTempBoard.Pos = move;
 
 					boards.Add(tempBoard);
@@ -158,7 +158,7 @@ namespace Salta
 		public float evaluate(ObservableCollection<SaltaPiece> board)
         {
 			Random random = new Random();
-			int rand = random.Next(10);
+			int rand = random.Next(-10, 10);
 
 			return rand;
 		}
@@ -180,10 +180,13 @@ namespace Salta
 
 			if(max_player == true)
             {
-				float maxEval = 10;
+				float maxEval = -10;
 				ObservableCollection<SaltaPiece> best_board = new ObservableCollection<SaltaPiece>();
 
-				foreach(var board in this.simulateMove(this.allMoves(saltaPieces, Player.Red), saltaPieces))
+				Dictionary<SaltaPiece, List<Point>> allMovesBoard = this.allMoves(saltaPieces, Player.Red);
+				List<ObservableCollection<SaltaPiece>> boards = this.simulateMove(allMovesBoard, saltaPieces);
+
+				foreach (var board in boards)
                 {
 					float evaluation = minmax(board, depth - 1, false).Item1;
 					maxEval = Math.Max(maxEval, evaluation);
@@ -198,12 +201,15 @@ namespace Salta
 				float minEval = 10;
 				ObservableCollection<SaltaPiece> best_board = new ObservableCollection<SaltaPiece>();
 
-				foreach (var board in this.simulateMove(this.allMoves(saltaPieces, Player.Green), saltaPieces))
+				Dictionary<SaltaPiece, List<Point>> allMovesBoard = this.allMoves(saltaPieces, Player.Green);
+				List<ObservableCollection<SaltaPiece>> boards = this.simulateMove(allMovesBoard, saltaPieces);
+
+				foreach (var board in boards)
 				{
 					float evaluation = minmax(board, depth - 1, true).Item1;
 					minEval = Math.Min(minEval, evaluation);
-					if (minEval == evaluation)
-						best_board = cloneBoard(board);
+                    if (minEval == evaluation)
+                        best_board = cloneBoard(board);
 				}
 
 				return new Tuple<float, ObservableCollection<SaltaPiece>>(minEval, best_board);
