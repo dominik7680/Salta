@@ -144,9 +144,10 @@ namespace Salta
 
 				foreach(Point move in pieceMoves)
                 {
-					ObservableCollection<SaltaPiece> tempBoard = new ObservableCollection<SaltaPiece>(currentBoard);
+					ObservableCollection<SaltaPiece> tempBoard = cloneBoard(currentBoard);
 					var pieceFromTempBoard = tempBoard.FirstOrDefault(x => x.Type == piece.Type);
 					pieceFromTempBoard.Pos = move;
+
 					boards.Add(tempBoard);
 				}
 			}
