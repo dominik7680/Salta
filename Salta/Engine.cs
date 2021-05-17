@@ -160,29 +160,40 @@ namespace Salta
 		/// <param name="saltaPieces">All salta pieces</param>
 		/// <param name="depth">Depth of algorithm</param>
 		/// <param name="max_player">Boolean value if we are maximizing or minimizing algorithm</param>
-		public bool minmax(ObservableCollection<SaltaPiece> saltaPieces, int depth, bool max_player)
+		public Tuple<float, ObservableCollection<SaltaPiece>> minmax(ObservableCollection<SaltaPiece> saltaPieces, int depth, bool max_player)
         {
 			if(depth == 0) // dodać warunek czy gra sie jeszcze toczy
             {
+				return new Tuple<float, ObservableCollection<SaltaPiece>>(0, saltaPieces);
 				//return evaluate();
             }
 
 			if(max_player == true)
             {
 				float maxEval = -100000;
-				bool best_move = false;
+				ObservableCollection<SaltaPiece> best_move = new ObservableCollection<SaltaPiece>();
 
 				foreach(var move in this.simulateMove(this.allMoves(saltaPieces, Player.Red), saltaPieces))
                 {
-					var evaluation = minmax(move, depth - 1, false);
+					float evaluation = minmax(move, depth - 1, false).Item1;
+					Math.Max(maxEval, evaluation);
                 }
+
+				return new Tuple<float, ObservableCollection<SaltaPiece>>(maxEval, best_move);
             }
             else
             {
+				float minEval = 100000;
+				ObservableCollection<SaltaPiece> best_move = new ObservableCollection<SaltaPiece>();
 
-            }
+				foreach (var move in this.simulateMove(this.allMoves(saltaPieces, Player.Green), saltaPieces))
+				{
+					float evaluation = minmax(move, depth - 1, false).Item1;
+					Math.Min(minEval, evaluation);
+				}
 
-			return true;
+				return new Tuple<float, ObservableCollection<SaltaPiece>>(minEval, best_move);
+			} 
         }
 	}
 }
