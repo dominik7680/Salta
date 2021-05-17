@@ -160,7 +160,7 @@ namespace Salta
 		/// <param name="saltaPieces">All salta pieces</param>
 		/// <param name="depth">Depth of algorithm</param>
 		/// <param name="max_player">Boolean value if we are maximizing or minimizing algorithm</param>
-		public void minmax(ObservableCollection<SaltaPiece> saltaPieces, int depth, bool max_player)
+		public bool minmax(ObservableCollection<SaltaPiece> saltaPieces, int depth, bool max_player)
         {
 			if(depth == 0) // dodać warunek czy gra sie jeszcze toczy
             {
@@ -172,15 +172,17 @@ namespace Salta
 				float maxEval = -100000;
 				bool best_move = false;
 
-				foreach(var move in this.allMoves(saltaPieces, Player.Red))
+				foreach(var move in this.simulateMove(this.allMoves(saltaPieces, Player.Red), saltaPieces))
                 {
-
+					var evaluation = minmax(move, depth - 1, false);
                 }
             }
             else
             {
 
             }
+
+			return true;
         }
 	}
 }
