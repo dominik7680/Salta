@@ -92,7 +92,8 @@ namespace Salta
 			if (lastSelectedPiece != null && currentSelectedPiece == null)
             {
 				lastSelectedPiece.Pos = currentSelect;
-				var tuple = this.engine.chooseMove(this.engine.allMoves(Pieces, Player.Red));
+				//var tuple = this.engine.chooseMove(this.engine.allMoves(Pieces, Player.Red));
+				var tuple = this.engine.minmax(Pieces, 3, true);
 				var pieceToMove = Pieces.Where(point => point.Type == tuple.Item1.Type && point.Player == Player.Red).FirstOrDefault();
 				pieceToMove.Pos = tuple.Item2;
 			}

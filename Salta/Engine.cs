@@ -162,6 +162,8 @@ namespace Salta
 			return rand;
 		}
 
+		
+
 		/// <summary>
 		/// Minmax function
 		/// </summary>
@@ -178,29 +180,54 @@ namespace Salta
 			if(max_player == true)
             {
 				float maxEval = -100000;
-				ObservableCollection<SaltaPiece> best_move = new ObservableCollection<SaltaPiece>();
+				ObservableCollection<SaltaPiece> best_board = new ObservableCollection<SaltaPiece>();
 
 				foreach(var board in this.simulateMove(this.allMoves(saltaPieces, Player.Red), saltaPieces))
                 {
 					float evaluation = minmax(board, depth - 1, false).Item1;
-					Math.Max(maxEval, evaluation);
+					maxEval = Math.Max(maxEval, evaluation);
+					if (maxEval == evaluation)
+						best_board = cloneBoard(board);
                 }
 
-				return new Tuple<float, ObservableCollection<SaltaPiece>>(maxEval, best_move);
+				return new Tuple<float, ObservableCollection<SaltaPiece>>(maxEval, best_board);
             }
             else
             {
 				float minEval = 100000;
-				ObservableCollection<SaltaPiece> best_move = new ObservableCollection<SaltaPiece>();
+				ObservableCollection<SaltaPiece> best_board = new ObservableCollection<SaltaPiece>();
 
 				foreach (var board in this.simulateMove(this.allMoves(saltaPieces, Player.Green), saltaPieces))
 				{
 					float evaluation = minmax(board, depth - 1, false).Item1;
 					Math.Min(minEval, evaluation);
+					if (minEval == evaluation)
+						best_board = cloneBoard(board);
 				}
 
-				return new Tuple<float, ObservableCollection<SaltaPiece>>(minEval, best_move);
+				return new Tuple<float, ObservableCollection<SaltaPiece>>(minEval, best_board);
 			} 
         }
+
+		private SaltaPiece clonePiece(SaltaPiece piece)
+		{
+			SaltaPiece newPiece = new SaltaPiece()
+			{
+				Type = piece.Type,
+				Player = piece.Player,
+				Pos = piece.Pos
+			};
+			return newPiece;
+		}
+
+		private ObservableCollection<SaltaPiece> cloneBoard(ObservableCollection<SaltaPiece> board)
+		{
+			ObservableCollection<SaltaPiece> newBoard = new ObservableCollection<SaltaPiece>();
+			foreach (SaltaPiece piece in board)
+			{
+				newBoard.Add(clonePiece(piece));
+			}
+			return newBoard;
+		}
 	}
 }
