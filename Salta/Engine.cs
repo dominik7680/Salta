@@ -115,8 +115,8 @@ namespace Salta
 						allMoves.Add(piece, validMoves);
 					}
 
-					
-					if (isSalta(clonePiece(piece), cloneBoard(Pieces)))
+
+					if (isSalta(clonePiece(piece), cloneBoard(Pieces)) && validMoves.Count > 0)
 					{
 						allMoves.Clear();
 						allMoves.Add(clonePiece(piece), validMoves);
