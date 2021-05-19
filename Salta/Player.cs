@@ -9,6 +9,7 @@ namespace Salta
 	public enum Player
 	{
 		Green,
-		Red
+		Red,
+		Special
 	}
 }

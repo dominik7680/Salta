@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -24,11 +25,16 @@ namespace Salta
     public partial class MainWindow : Window
     {
 		private ObservableCollection<SaltaPiece> Pieces;
+		private List<SaltaPiece> DestinationPositionsForPieces = new List<SaltaPiece>();
 		private Point LastSelectedPosition = new Point(-1,-1);
+		private Engine engine = new Engine();
+		private SaltaPiece lastSelectedPiece;
+		private SaltaPiece currentSelectedPiece;
 
 		public MainWindow()
         {
 			InitializeComponent();
+			//this.engine.IsWinner = false;
 
 			this.Pieces = new ObservableCollection<SaltaPiece>() {
 				new SaltaPiece{Pos=new Point(0, 9), Type=PieceType.Star_1, Player=Player.Green},
@@ -63,8 +69,13 @@ namespace Salta
 				new SaltaPiece{Pos=new Point(3, 2), Type=PieceType.Point_4, Player=Player.Red},
 				new SaltaPiece{Pos=new Point(1, 2), Type=PieceType.Point_5, Player=Player.Red},
 
-				new SaltaPiece{Pos=new Point(-1, -1), Type=PieceType.Selection, Player=Player.Green},
+				new SaltaPiece{Pos=new Point(-1, -1), Type=PieceType.Selection, Player=Player.Special},
 			};
+			CalculateDestinationPositions();
+
+			// Temporary. Uncomment to show destination position in the beginning of the Game.
+			//Pieces.Clear();
+			//DestinationPositionsForPieces.ForEach(Pieces.Add);
 
 			this.ChessBoard.ItemsSource = this.Pieces;
 		}
@@ -76,12 +87,18 @@ namespace Salta
 			int y = (int)p.Y;
 
 			var currentSelect = new Point(x, y);
-			var lastSelectedPiece = Pieces.Where(z => z.Pos.X == LastSelectedPosition.X && z.Pos.Y == LastSelectedPosition.Y).FirstOrDefault();
-			var currentSelectedPiece = Pieces.Where(z => z.Pos.X == currentSelect.X && z.Pos.Y == currentSelect.Y).FirstOrDefault();
+			this.lastSelectedPiece = Pieces.Where(z => z.Pos.X == LastSelectedPosition.X && z.Pos.Y == LastSelectedPosition.Y).FirstOrDefault();
+			this.currentSelectedPiece = Pieces.Where(z => z.Pos.X == currentSelect.X && z.Pos.Y == currentSelect.Y).FirstOrDefault();
 			if (lastSelectedPiece != null && currentSelectedPiece == null)
             {
 				lastSelectedPiece.Pos = currentSelect;
-				
+				//var tuple = this.engine.chooseMove(this.engine.allMoves(Pieces, Player.Red));
+				//var pieceToMove = Pieces.Where(point => point.Type == tuple.Item1.Type && point.Player == Player.Red).FirstOrDefault();
+				//pieceToMove.Pos = tuple.Item2;
+				ObservableCollection<SaltaPiece> board = this.engine.minmax(Pieces, 3, true).Item2;
+				Pieces.Clear();
+				foreach (var piece in board)
+					Pieces.Add(piece);
 			}
 			else
             {
@@ -89,11 +106,27 @@ namespace Salta
 			}
 			var selection = Pieces.Where(z => z.Type == PieceType.Selection).FirstOrDefault();
 			selection.Pos = currentSelect;
-
 		}
 
+		private void CalculateDestinationPositions()
+        {
+			var playerTypeToCalculate = new List<Player> { Player.Red, Player.Green };
+
+			foreach(var playerType in playerTypeToCalculate)
+            {
+				foreach (var piece in Pieces.Where(x => x.Player == playerType))
+				{
+					double destinationX = piece.Pos.X % 2 == 0 ? piece.Pos.X + 1 : piece.Pos.X - 1;
+					double destinationY = playerType == Player.Red ? piece.Pos.Y + 7 : piece.Pos.Y - 7;
+					var pieceToInsert = new SaltaPiece { 
+						Pos = new Point(destinationX, destinationY), 
+						Type = piece.Type, 
+						Player = piece.Player
+                    };
+
+					DestinationPositionsForPieces.Add(pieceToInsert);
+				}
+			}
+		}
     }
-
-
-
 }
