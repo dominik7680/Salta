@@ -131,7 +131,7 @@ namespace Salta
 			Point move = new Point(allMoves.Values.ElementAt(ranPieceNum)[randomMove].X, allMoves.Values.ElementAt(ranPieceNum)[randomMove].Y);
 			var tuple = new Tuple<SaltaPiece, Point>(randomPiece, move);
 			return tuple;
-        }*/
+        }
 
 		public List<ObservableCollection<SaltaPiece>> simulateMove(Dictionary<SaltaPiece, List<Point>> allMoves, ObservableCollection<SaltaPiece> currentBoard)
 		{
