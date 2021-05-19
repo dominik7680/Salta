@@ -137,13 +137,14 @@ namespace Salta
 					return false;
 				else return true;
             }
-			else
-            {
+			if (saltaPiece.Player == Player.Green)
+			{
 				SaltaPiece checkPiece = Pieces.FirstOrDefault(p => ((saltaPiece.Pos.X + 1 == p.Pos.X || saltaPiece.Pos.X - 1 == p.Pos.X) && saltaPiece.Pos.Y - 1 == p.Pos.Y) && (p.Player == Player.Red));
 				if (checkPiece == null)
 					return false;
 				else return true;
 			}
+			return false;
         }
 
 		public List<ObservableCollection<SaltaPiece>> simulateMove(Dictionary<SaltaPiece, List<Point>> allMoves, ObservableCollection<SaltaPiece> currentBoard)
