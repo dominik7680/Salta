@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,7 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System.Windows.Threading;
 
 namespace Salta
 {
@@ -89,9 +90,15 @@ namespace Salta
 			var currentSelect = new Point(x, y);
 			this.lastSelectedPiece = Pieces.Where(z => z.Pos.X == LastSelectedPosition.X && z.Pos.Y == LastSelectedPosition.Y).FirstOrDefault();
 			this.currentSelectedPiece = Pieces.Where(z => z.Pos.X == currentSelect.X && z.Pos.Y == currentSelect.Y).FirstOrDefault();
+
+			var selection = Pieces.Where(z => z.Type == PieceType.Selection).FirstOrDefault();
+			selection.Pos = currentSelect;
+
 			if (lastSelectedPiece != null && currentSelectedPiece == null)
             {
+				Title = "Salta game - Computer is thinking... Wait for your move";
 				lastSelectedPiece.Pos = currentSelect;
+				UpdateUI();
 				//var tuple = this.engine.chooseMove(this.engine.allMoves(Pieces, Player.Red));
 				//var pieceToMove = Pieces.Where(point => point.Type == tuple.Item1.Type && point.Player == Player.Red).FirstOrDefault();
 				//pieceToMove.Pos = tuple.Item2;
@@ -104,8 +111,7 @@ namespace Salta
             {
 				LastSelectedPosition = currentSelect;
 			}
-			var selection = Pieces.Where(z => z.Type == PieceType.Selection).FirstOrDefault();
-			selection.Pos = currentSelect;
+			Title = "Salta game";
 		}
 
 		private void CalculateDestinationPositions()
@@ -128,5 +134,10 @@ namespace Salta
 				}
 			}
 		}
-    }
+
+		private void UpdateUI()
+		{  
+			Application.Current.Dispatcher.Invoke(DispatcherPriority.Background, new ThreadStart(delegate { }));
+		}
+	}
 }
