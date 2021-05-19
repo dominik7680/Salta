@@ -132,18 +132,21 @@ namespace Salta
         {
 			if(saltaPiece.Player == Player.Red)
             {
-				SaltaPiece checkPiece = Pieces.FirstOrDefault(p => ((saltaPiece.Pos.X + 1 == p.Pos.X || saltaPiece.Pos.X - 1 == p.Pos.X) && saltaPiece.Pos.Y + 1 == p.Pos.Y) && (p.Player == Player.Green));
+				SaltaPiece checkPiece = Pieces.FirstOrDefault(p => ((saltaPiece.Pos.X + 1 == p.Pos.X || saltaPiece.Pos.X - 1 == p.Pos.X) 
+					&& saltaPiece.Pos.Y + 1 == p.Pos.Y) && (p.Player == Player.Green));
 				if (checkPiece == null)
 					return false;
 				else return true;
             }
-			else
-            {
-				SaltaPiece checkPiece = Pieces.FirstOrDefault(p => ((saltaPiece.Pos.X + 1 == p.Pos.X || saltaPiece.Pos.X - 1 == p.Pos.X) && saltaPiece.Pos.Y - 1 == p.Pos.Y) && (p.Player == Player.Red));
+			if (saltaPiece.Player == Player.Green)
+			{
+				SaltaPiece checkPiece = Pieces.FirstOrDefault(p => ((saltaPiece.Pos.X + 1 == p.Pos.X || saltaPiece.Pos.X - 1 == p.Pos.X) 
+					&& saltaPiece.Pos.Y - 1 == p.Pos.Y) && (p.Player == Player.Red));
 				if (checkPiece == null)
 					return false;
 				else return true;
 			}
+			return false;
         }
 
 		public List<ObservableCollection<SaltaPiece>> simulateMove(Dictionary<SaltaPiece, List<Point>> allMoves, ObservableCollection<SaltaPiece> currentBoard)
