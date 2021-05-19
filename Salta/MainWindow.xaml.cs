@@ -102,7 +102,7 @@ namespace Salta
 				//var tuple = this.engine.chooseMove(this.engine.allMoves(Pieces, Player.Red));
 				//var pieceToMove = Pieces.Where(point => point.Type == tuple.Item1.Type && point.Player == Player.Red).FirstOrDefault();
 				//pieceToMove.Pos = tuple.Item2;
-				ObservableCollection<SaltaPiece> board = this.engine.minmax(Pieces.Where(x => x.Player != Player.Special), 3, true).Item2;
+				ObservableCollection<SaltaPiece> board = this.engine.minmax(Pieces, 3, true).Item2;
 				Pieces.Clear();
 				foreach (var piece in board)
 					Pieces.Add(piece);
