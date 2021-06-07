@@ -171,12 +171,26 @@ namespace Salta
 			return boards;
 		}
 
-		public float evaluate(ObservableCollection<SaltaPiece> board)
+		public double evaluate(ObservableCollection<SaltaPiece> board)
         {
-			Random random = new Random();
-			int rand = random.Next(-10, 10);
+			double totalsum = 0;
+			foreach (SaltaPiece piece in board)
+			{
+				double x = piece.FinalPos.X - piece.Pos.X;
+				double y = 0;
+				if (piece.Player == Player.Red)
+				{
+					y = piece.FinalPos.Y - piece.Pos.Y;
+					totalsum += x + y;
+				}
+				else if (piece.Player == Player.Green)
+                {
+					y = piece.Pos.Y - piece.FinalPos.Y;
+					totalsum -= x + y;
+				}
 
-			return rand;
+            }
+			return totalsum;
 		}
 
 		/// <summary>
@@ -185,16 +199,16 @@ namespace Salta
 		/// <param name="saltaPieces">All salta pieces</param>
 		/// <param name="depth">Depth of algorithm</param>
 		/// <param name="max_player">Boolean value if we are maximizing or minimizing algorithm</param>
-		public Tuple<float, ObservableCollection<SaltaPiece>> minmax(ObservableCollection<SaltaPiece> saltaPieces, int depth, bool max_player)
+		public Tuple<double, ObservableCollection<SaltaPiece>> minmax(ObservableCollection<SaltaPiece> saltaPieces, int depth, bool max_player)
         {
 			if(depth == 0) // dodać warunek czy gra sie jeszcze toczy
             {
-				return new Tuple<float, ObservableCollection<SaltaPiece>>(evaluate(saltaPieces), saltaPieces);
+				return new Tuple<double, ObservableCollection<SaltaPiece>>(evaluate(saltaPieces), saltaPieces);
             }
 
 			if(max_player == true)
             {
-				float maxEval = -10;
+				double maxEval = -1000000;
 				ObservableCollection<SaltaPiece> best_board = new ObservableCollection<SaltaPiece>();
 
 				Dictionary<SaltaPiece, List<Point>> allMovesBoard = this.allMoves(saltaPieces, Player.Red);
@@ -202,17 +216,17 @@ namespace Salta
 
 				foreach (var board in boards)
                 {
-					float evaluation = minmax(board, depth - 1, false).Item1;
+					double evaluation = minmax(board, depth - 1, false).Item1;
 					maxEval = Math.Max(maxEval, evaluation);
 					if (maxEval == evaluation)
 						best_board = cloneBoard(board);
                 }
 
-				return new Tuple<float, ObservableCollection<SaltaPiece>>(maxEval, best_board);
+				return new Tuple<double, ObservableCollection<SaltaPiece>>(maxEval, best_board);
             }
             else
             {
-				float minEval = 10;
+				double minEval = 1000000;
 				ObservableCollection<SaltaPiece> best_board = new ObservableCollection<SaltaPiece>();
 
 				Dictionary<SaltaPiece, List<Point>> allMovesBoard = this.allMoves(saltaPieces, Player.Green);
@@ -220,13 +234,13 @@ namespace Salta
 
 				foreach (var board in boards)
 				{
-					float evaluation = minmax(board, depth - 1, true).Item1;
+					double evaluation = minmax(board, depth - 1, true).Item1;
 					minEval = Math.Min(minEval, evaluation);
                     if (minEval == evaluation)
                         best_board = cloneBoard(board);
 				}
 
-				return new Tuple<float, ObservableCollection<SaltaPiece>>(minEval, best_board);
+				return new Tuple<double, ObservableCollection<SaltaPiece>>(minEval, best_board);
 			} 
         }
 
