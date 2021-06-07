@@ -86,6 +86,8 @@ namespace Salta
 			Point p = Mouse.GetPosition(ChessBoard);
 			int x = (int)p.X;
 			int y = (int)p.Y;
+			if ((x + y) % 2 == 0)
+				return;
 
 			var currentSelect = new Point(x, y);
 			this.lastSelectedPiece = Pieces.Where(z => z.Pos.X == LastSelectedPosition.X && z.Pos.Y == LastSelectedPosition.Y).FirstOrDefault();
