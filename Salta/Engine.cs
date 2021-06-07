@@ -236,7 +236,8 @@ namespace Salta
 			{
 				Type = piece.Type,
 				Player = piece.Player,
-				Pos = piece.Pos
+				Pos = piece.Pos,
+				FinalPos = piece.FinalPos
 			};
 			return newPiece;
 		}
