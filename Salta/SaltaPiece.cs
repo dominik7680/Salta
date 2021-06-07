@@ -30,5 +30,12 @@ namespace Salta
 			get { return this._Player; }
 			set { this._Player = value; RaisePropertyChanged(() => this.Player); }
 		}
+
+		private Point _FinalPos;
+		public Point FinalPos
+		{
+			get { return this._FinalPos; }
+			set { this._FinalPos = value; RaisePropertyChanged(() => this.FinalPos); }
+		}
 	}
 }

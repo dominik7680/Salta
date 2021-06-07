@@ -26,7 +26,6 @@ namespace Salta
     public partial class MainWindow : Window
     {
 		private ObservableCollection<SaltaPiece> Pieces;
-		private List<SaltaPiece> DestinationPositionsForPieces = new List<SaltaPiece>();
 		private Point LastSelectedPosition = new Point(-1,-1);
 		private Engine engine = new Engine();
 		private SaltaPiece lastSelectedPiece;
@@ -77,6 +76,8 @@ namespace Salta
 			// Temporary. Uncomment to show destination position in the beginning of the Game.
 			//Pieces.Clear();
 			//DestinationPositionsForPieces.ForEach(Pieces.Add);
+			//foreach (var piece in Pieces.Where(x => x.Player == Player.Green || x.Player == Player.Red))
+			//	piece.Pos = piece.FinalPos;
 
 			this.ChessBoard.ItemsSource = this.Pieces;
 		}
@@ -126,13 +127,8 @@ namespace Salta
 				{
 					double destinationX = piece.Pos.X % 2 == 0 ? piece.Pos.X + 1 : piece.Pos.X - 1;
 					double destinationY = playerType == Player.Red ? piece.Pos.Y + 7 : piece.Pos.Y - 7;
-					var pieceToInsert = new SaltaPiece { 
-						Pos = new Point(destinationX, destinationY), 
-						Type = piece.Type, 
-						Player = piece.Player
-                    };
-
-					DestinationPositionsForPieces.Add(pieceToInsert);
+					var findPiece = Pieces.FirstOrDefault(x => x.Player == piece.Player && x.Type == piece.Type);
+					findPiece.FinalPos = new Point(destinationX, destinationY);
 				}
 			}
 		}
