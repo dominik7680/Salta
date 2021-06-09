@@ -52,6 +52,18 @@ namespace Salta
 						Point valid = new Point(currentSelectedPiece.Pos.X + 1, currentSelectedPiece.Pos.Y - 1);
 						validMoves.Add(valid);
 					}
+					if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X - 1 && z.Pos.Y == currentSelectedPiece.Pos.Y + 1).FirstOrDefault() == null &&
+					currentSelect.X - 1 >= 0 && currentSelect.Y - 1 < 10)
+					{
+						Point valid = new Point(currentSelectedPiece.Pos.X - 1, currentSelectedPiece.Pos.Y - 1);
+						validMoves.Add(valid);
+					}
+					if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 1 && z.Pos.Y == currentSelectedPiece.Pos.Y + 1).FirstOrDefault() == null &&
+					currentSelect.X + 1 < 10 && currentSelect.Y - 1 < 10)
+					{
+						Point valid = new Point(currentSelectedPiece.Pos.X - 1, currentSelectedPiece.Pos.Y - 1);
+						validMoves.Add(valid);
+					}
 				}
 				
 				Console.WriteLine("----------");
@@ -90,6 +102,18 @@ namespace Salta
 						currentSelect.X + 1 < 10 && currentSelect.Y + 1 < 10)
 					{
 						Point valid = new Point(currentSelectedPiece.Pos.X + 1, currentSelectedPiece.Pos.Y + 1);
+						validMoves.Add(valid);
+					}
+					if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X - 1 && z.Pos.Y == currentSelectedPiece.Pos.Y - 1).FirstOrDefault() == null &&
+					currentSelect.X - 1 >= 0 && currentSelect.Y - 1 >= 0)
+					{
+						Point valid = new Point(currentSelectedPiece.Pos.X - 1, currentSelectedPiece.Pos.Y - 1);
+						validMoves.Add(valid);
+					}
+					if (Pieces.Where(z => z.Pos.X == currentSelectedPiece.Pos.X + 1 && z.Pos.Y == currentSelectedPiece.Pos.Y - 1).FirstOrDefault() == null &&
+						currentSelect.X + 1 < 10 && currentSelect.Y - 1 >= 0)
+					{
+						Point valid = new Point(currentSelectedPiece.Pos.X + 1, currentSelectedPiece.Pos.Y - 1);
 						validMoves.Add(valid);
 					}
 				}
