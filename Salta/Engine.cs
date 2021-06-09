@@ -266,6 +266,24 @@ namespace Salta
 			} 
         }
 
+		public static bool isGameWin(ObservableCollection<SaltaPiece> board, Player player)
+		{
+			int count = 0;
+			foreach (SaltaPiece piece in board)
+			{
+				if (piece.Player == player)
+				{
+					if (piece.Pos == piece.FinalPos)
+						count++;
+				}
+			}
+
+			if (count == 15)
+				return true;
+			else
+				return false;
+		}
+
 		private SaltaPiece clonePiece(SaltaPiece piece)
 		{
 			SaltaPiece newPiece = new SaltaPiece()
