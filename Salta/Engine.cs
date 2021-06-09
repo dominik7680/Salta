@@ -180,7 +180,7 @@ namespace Salta
 				double y = Math.Abs(piece.FinalPos.Y - piece.Pos.Y); 
 				if (piece.Player == Player.Red)
 				{
-					totalsum -= x + y;
+					totalsum += x + y;
 				}
 				else if (piece.Player == Player.Green)
                 {
