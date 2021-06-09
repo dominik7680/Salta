@@ -176,16 +176,14 @@ namespace Salta
 			double totalsum = 0;
 			foreach (SaltaPiece piece in board)
 			{
-				double x = piece.FinalPos.X - piece.Pos.X;
-				double y = 0;
+				double x = Math.Abs(piece.FinalPos.X - piece.Pos.X);
+				double y = Math.Abs(piece.FinalPos.Y - piece.Pos.Y); 
 				if (piece.Player == Player.Red)
 				{
-					y = piece.FinalPos.Y - piece.Pos.Y;
-					totalsum += x + y;
+					totalsum -= x + y;
 				}
 				else if (piece.Player == Player.Green)
                 {
-					y = piece.Pos.Y - piece.FinalPos.Y;
 					totalsum -= x + y;
 				}
 
