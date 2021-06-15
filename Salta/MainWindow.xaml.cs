@@ -116,6 +116,7 @@ namespace Salta
 					if (Engine.isGameWin(Pieces, Player.Red))
 					{
 						//Red Wins!!!!!!!
+						MessageBox.Show("Czerwony wygrał grę");
 						this.Close();
 					}
 
@@ -123,7 +124,11 @@ namespace Salta
 				}
 				//Green Wins
 				else
+                {
+					MessageBox.Show("Zielony wygrał grę");
 					this.Close();
+				}
+					
 			}
 			else
             {
