@@ -221,7 +221,7 @@ namespace Salta
 		/// <param name="saltaPieces">All salta pieces</param>
 		/// <param name="depth">Depth of algorithm</param>
 		/// <param name="max_player">Boolean value if we are maximizing or minimizing algorithm</param>
-		public Tuple<double, ObservableCollection<SaltaPiece>> minmax(ObservableCollection<SaltaPiece> saltaPieces, int depth, bool max_player)
+		public Tuple<double, ObservableCollection<SaltaPiece>> minmax(ObservableCollection<SaltaPiece> saltaPieces, int depth, bool max_player, double alpha, double beta)
         {
 			if(depth == 0) // dodać warunek czy gra sie jeszcze toczy
             {
@@ -238,8 +238,11 @@ namespace Salta
 
 				foreach (var board in boards)
                 {
-					double evaluation = minmax(board, depth - 1, false).Item1;
+					double evaluation = minmax(board, depth - 1, false, alpha, beta).Item1;
 					maxEval = Math.Max(maxEval, evaluation);
+					alpha = Math.Max(alpha, maxEval);
+					if (beta <= alpha)
+						break;
 					if (maxEval == evaluation)
 						best_board = cloneBoard(board);
                 }
@@ -256,10 +259,13 @@ namespace Salta
 
 				foreach (var board in boards)
 				{
-					double evaluation = minmax(board, depth - 1, true).Item1;
+					double evaluation = minmax(board, depth - 1, true, alpha, beta).Item1;
 					minEval = Math.Min(minEval, evaluation);
-                    if (minEval == evaluation)
-                        best_board = cloneBoard(board);
+					beta = Math.Min(beta, minEval);
+					if (alpha <= beta)
+						break;
+					if (minEval == evaluation)
+						best_board = cloneBoard(board);
 				}
 
 				return new Tuple<double, ObservableCollection<SaltaPiece>>(minEval, best_board);
