@@ -107,17 +107,19 @@ namespace Salta
 				//pieceToMove.Pos = tuple.Item2;
 				if (!Engine.isGameWin(Pieces, Player.Green))
 				{
+					
+					ObservableCollection<SaltaPiece> board = this.engine.minmax(this.engine.cloneBoard(Pieces), 3, true).Item2;
+					Pieces.Clear();
+					foreach (var piece in board)
+						Pieces.Add(piece);
+
 					if (Engine.isGameWin(Pieces, Player.Red))
 					{
 						//Red Wins!!!!!!!
 						this.Close();
 					}
 
-					ObservableCollection<SaltaPiece> board = this.engine.minmax(this.engine.cloneBoard(Pieces), 3, true).Item2;
-					Pieces.Clear();
-					foreach (var piece in board)
-						Pieces.Add(piece);
-					
+
 				}
 				//Green Wins
 				else
