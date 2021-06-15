@@ -273,15 +273,13 @@ namespace Salta
 			{
 				if (piece.Player == player)
 				{
-					if (piece.Pos == piece.FinalPos)
-						count++;
-				}
-			}
+					if (piece.Pos != piece.FinalPos)
+						return false;
 
-			if (count == 15)
-				return true;
-			else
-				return false;
+				}
+
+			}
+			return true;
 		}
 
 		private SaltaPiece clonePiece(SaltaPiece piece)
