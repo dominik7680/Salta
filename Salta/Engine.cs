@@ -223,7 +223,7 @@ namespace Salta
 		/// <param name="max_player">Boolean value if we are maximizing or minimizing algorithm</param>
 		public Tuple<double, ObservableCollection<SaltaPiece>> minmax(ObservableCollection<SaltaPiece> saltaPieces, int depth, bool max_player, double alpha, double beta)
         {
-			if(depth == 0) // dodać warunek czy gra sie jeszcze toczy
+			if(depth == 0)
             {
 				return new Tuple<double, ObservableCollection<SaltaPiece>>(evaluate(saltaPieces), saltaPieces);
             }
